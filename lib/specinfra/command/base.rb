@@ -336,6 +336,10 @@ module SpecInfra
       def get_ipaddress_of_host(name)
         "getent hosts #{escape(name)} | awk '{print $1}'"
       end
+
+      def make_link(link, target)
+        "ln -snf #{escape(target)} #{escape(link)}"
+      end
     end
   end
 end

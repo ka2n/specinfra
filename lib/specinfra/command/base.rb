@@ -341,11 +341,11 @@ module SpecInfra
         "mkdir -p #{directory}"
       end
 
-      def make_mode_changed(file, mode)
+      def change_mode(file, mode)
         "chmod #{escape(mode)} #{escape(file)}"
       end
 
-      def make_mode_changed_by_symbol(file, mode, by_whom)
+      def change_mode_by_symbol(file, mode, by_whom)
         "chmod #{chmod_symbol(by_whom)}+#{mode} #{escape(file)}"
       end
 

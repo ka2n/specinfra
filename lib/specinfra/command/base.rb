@@ -337,8 +337,42 @@ module SpecInfra
         "getent hosts #{escape(name)} | awk '{print $1}'"
       end
 
+      def make_directory(directory)
+        "mkdir -p #{directory}"
+      end
+
+      def make_mode_changed(file, mode)
+        "chmod #{escape(mode)} #{escape(file)}"
+      end
+
+      def make_mode_changed_by_symbol(file, mode, by_whom)
+        "chmod #{chmod_symbol(by_whom)}+#{mode} #{escape(file)}"
+      end
+
+      def make_owned_by(file, user)
+        "chown #{escape(user)} #{escape(file)}"
+      end
+
+      def make_grouped_into(file, group)
+        "chgrp #{escape(group)} #{file}"
+      end
+
       def make_link(link, target)
         "ln -snf #{escape(target)} #{escape(link)}"
+      end
+
+      private
+      def chmod_symbol(by_whom)
+        case by_whom
+        when nil
+          'u'
+        when 'owner'
+          'u'
+        when 'group'
+          'g'
+        when 'others'
+          'o'
+        end
       end
     end
   end
